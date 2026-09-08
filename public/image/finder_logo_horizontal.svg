@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 42" width="160" height="42" fill="none">
+  <!-- Sky-blue dynamic running figure on the left (matches user's icon) -->
+  <g transform="translate(4, 2) scale(0.68)">
+    <!-- Head -->
+    <circle cx="28" cy="10" r="5" fill="#00a8e8" />
+    <!-- Raised Right Arm / Fist -->
+    <path d="M30 18 C33 16, 37 12, 40 7 C41.5 4.5, 44 6, 43 8.5 C41 12, 37 18, 34 22 Z" fill="#00a8e8" />
+    <circle cx="43" cy="6" r="3.2" fill="#00a8e8" />
+    
+    <!-- Torso with dynamic curve & tie -->
+    <path d="M26 15 C29 16, 32 17, 34 21 C31 28, 28 32, 23 37 C21 34, 23 28, 24 23 C22 22, 18 20, 16 19 C18 16, 23 15, 26 15 Z" fill="#00a8e8" />
+    <!-- Tie floating back -->
+    <path d="M30 20 L39 28 L42 27 L33 19 Z" fill="#00a8e8" />
+
+    <!-- Left Arm backwards -->
+    <path d="M19 18 C15 19, 10 20, 8 22 C6.5 23.5, 8.5 25.5, 10 24 C13 22, 17 21, 20 20 Z" fill="#00a8e8" />
+    <circle cx="7" cy="23" r="2.8" fill="#00a8e8" />
+
+    <!-- Forward leg (bent running) -->
+    <path d="M25 35 C29 37, 33 41, 35 46 C36 48.5, 33.5 50, 31 48 C29 45, 26 41, 23 37 Z" fill="#00a8e8" />
+
+    <!-- Rear leg (extended back) -->
+    <path d="M22 36 C18 40, 13 45, 10 51 C8.5 53.5, 6.5 52, 7.5 49.5 C10 44, 15 39, 20 34 Z" fill="#00a8e8" />
+  </g>
+
+  <!-- Typography on the right -->
+  <!-- "FINDER" -->
+  <text x="42" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="900" letter-spacing="1.5" fill="#00a8e8">
+    FINDER
+  </text>
+
+  <!-- "SINCE 2026" -->
+  <text x="43" y="35" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Arial, sans-serif" font-size="7.5" font-weight="800" letter-spacing="3.8" fill="#00a8e8">
+    SINCE 2026
+  </text>
+</svg>

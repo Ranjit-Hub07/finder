@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165 40" width="165" height="40" fill="none">
+  <!-- Gradient for Icon -->
+  <defs>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Icon: Modern Sleek Runner Badge -->
+  <g transform="translate(0, 2)">
+    <rect x="0" y="0" width="36" height="36" rx="9" fill="url(#badgeGrad)" />
+    
+    <!-- Dynamic Leaping Figure in pure white -->
+    <!-- Head -->
+    <circle cx="19.5" cy="10" r="2.8" fill="#ffffff" />
+    <!-- Torso -->
+    <path d="M18 14 C18.5 13.2 21 13 21.8 14.2 C22.4 15.5 21 18.5 19.8 21 L16.8 23 C16 23.5 15.5 22.5 16.2 21.8 Z" fill="#ffffff" />
+    <!-- Raised Right Arm with clenched fist -->
+    <path d="M21.5 14 C23 12.8 25.2 9.8 26.5 8.2 C27.2 7.4 28.2 8.3 27.5 9.2 C25.8 11.2 23.5 14.8 22.2 16.2 Z" fill="#ffffff" />
+    <circle cx="27.8" cy="7.8" r="1.5" fill="#fef08a" />
+    <!-- Left Arm trailing -->
+    <path d="M18 15 C16 16 13.5 16.5 12 17.5 C11.3 18 10.5 17 11.3 16.3 C12.8 15 15.5 14.3 17.5 13.5 Z" fill="#ffffff" />
+    <!-- Front Leg -->
+    <path d="M19.8 21 C21 23 23.2 25.2 25.5 27 C26.2 27.6 25.5 28.5 24.6 28 C22.5 26.5 19.8 23.8 18.8 22.2 Z" fill="#ffffff" />
+    <!-- Rear Leg -->
+    <path d="M16.8 23 C14.8 25 12.8 27.2 10 29.5 C9.3 30.1 8.5 29.1 9.3 28.3 C11.5 26.2 14.2 23.5 15.8 21.8 Z" fill="#ffffff" />
+  </g>
+
+  <!-- Brand Typography -->
+  <!-- "FINDER" -->
+  <text x="44" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="900" letter-spacing="0.8" fill="#05264e">
+    FINDER
+  </text>
+  
+  <!-- Accent Dot -->
+  <circle cx="135" cy="21" r="3" fill="#0ea5e9" />
+
+  <!-- Subtitle: SINCE 2026 -->
+  <text x="45" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="700" letter-spacing="3.2" fill="#0ea5e9">
+    SINCE 2026
+  </text>
+</svg>
