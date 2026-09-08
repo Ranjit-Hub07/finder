@@ -1,5 +1,5 @@
 import pool from "@/lib/db"; 
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
