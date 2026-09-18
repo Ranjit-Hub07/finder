@@ -105,35 +105,35 @@ const CandidatesSearch = () => {
       <Topbar />
 
       <div
+        className="recruiter-page-container"
         style={{
-          paddingTop: "175px",
           minHeight: "100vh",
           paddingBottom: "40px",
           background: "linear-gradient(135deg, #f5f8ff 0%, #ebf1ff 100%)",
         }}
       >
         <div
-          className="mx-auto"
+          className="mx-auto p-3 p-md-4"
           style={{
-            maxWidth: "90%",
+            maxWidth: "1400px",
+            width: "95%",
             background: "rgba(255, 255, 255, 0.9)",
             borderRadius: "14px",
-            padding: "25px",
             border: "1px solid #e6e9f2",
             boxShadow: "0px 8px 20px rgba(0,0,0,0.08)",
           }}
         >
           {/* HEADER + FILTERS */}
-          <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
             <h5
               className="fw-bold"
-              style={{ fontSize: "22px", color: "#05264e", margin: 0 }}
+              style={{ fontSize: "1.25rem", color: "#05264e", margin: 0 }}
             >
               Candidates List
             </h5>
 
-            <div className="d-flex gap-3">
-              <div style={{ width: "250px" }}>
+            <div className="d-flex flex-column flex-sm-row gap-2">
+              <div style={{ minWidth: "200px" }}>
                 <Select
                   options={skills}
                   value={selectedSkill}
@@ -143,7 +143,7 @@ const CandidatesSearch = () => {
                 />
               </div>
 
-              <div style={{ width: "250px" }}>
+              <div style={{ minWidth: "200px" }}>
                 <Select
                   options={cities}
                   value={selectedCity}
@@ -156,10 +156,10 @@ const CandidatesSearch = () => {
           </div>
 
           {/* TABLE */}
-          <div style={{ overflowX: "auto" }}>
+          <div className="table-responsive">
             <table
               className="table table-hover text-center align-middle"
-              style={{ width: "100%", minWidth: "1100px" }}
+              style={{ width: "100%", minWidth: "750px" }}
             >
               <thead className="table-light">
                 <tr>

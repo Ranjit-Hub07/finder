@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 // ✅ App Router API for /api/jobs/[id]
 export async function GET(req, { params }) {
-  const { id } = params;
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
 
   try {
     // ✅ Validate ID

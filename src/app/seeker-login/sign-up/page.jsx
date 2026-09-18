@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import Select from "react-select";
@@ -439,24 +439,25 @@ export default function SeekerRegister() {
     <>
       <Navbar />
 
-      <div style={{ paddingTop: "50px" }}>
+      <div style={{ paddingTop: "var(--header-offset, 70px)" }}>
         <div
           style={{
             backgroundImage: 'url("/image/seeker-register.png")',
-            backgroundAttachment: "fixed",
+            backgroundAttachment: "scroll",
             backgroundRepeat: "no-repeat",
-            backgroundPosition: "right",
+            backgroundPosition: "right top",
             backgroundColor: "#f3f3f3",
             minHeight: "100vh",
-            paddingTop: "100px",
+            paddingTop: "20px",
+            paddingBottom: "40px",
           }}
         >
-          <Container className="my-5">
+          <Container className="my-2 my-md-4">
             <Row>
-              <Col md={6}>
-                <div className="p-4">
+              <Col xs={12} lg={7} xl={6}>
+                <div className="p-3 p-sm-4 bg-white rounded-4 shadow-sm">
                   <h6 className="text-primary text-center fw-medium">Seeker Registration Form</h6>
-                  <h2 className="text-center fw-bold mb-4">Start for free Today</h2>
+                  <h2 className="text-center fw-bold mb-4" style={{ fontSize: "clamp(1.5rem, 4vw, 2rem)" }}>Start for free Today</h2>
 
                   <form onSubmit={handleSubmit} encType="multipart/form-data" onKeyDown={handleEnterKey}>
                     {/* Name */}

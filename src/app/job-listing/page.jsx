@@ -84,12 +84,15 @@ function JobListingContent() {
     fetchJobs();
   }, [company, experience, location, keyword, jobType]);
 
+  const [mobileActiveView, setMobileActiveView] = useState("list");
+
   // ✅ Filterbar Apply handler
   const handleApplyFilters = (newJobs, filtersWereApplied = true) => {
     setJobs(newJobs);
     setVisibleJobs(newJobs.slice(0, loadCount));
     setSelectedJob(newJobs[0] || null);
     setFilterApplied(filtersWereApplied);
+    setMobileActiveView("list");
   };
 
   // ✅ Reset All
@@ -98,6 +101,7 @@ function JobListingContent() {
     setVisibleJobs([]);
     setSelectedJob(null);
     setFilterApplied(false);
+    setMobileActiveView("list");
     router.push("/job-listing");
   };
 
@@ -109,29 +113,23 @@ function JobListingContent() {
   };
 
   return (
-    <div style={{ paddingTop: "120px", backgroundColor: "#f8fafc" }}>
+    <div className="job-listing-container" style={{ backgroundColor: "#f8fafc" }}>
       <Filterbar onApply={handleApplyFilters} onReset={handleResetAll} />
-      <div style={{ display: "flex", minHeight: "calc(100vh - 230px)", overflow: "hidden" }}>
+      <div className="job-listing-split-wrap">
         {/* Left: Job list */}
         <div
-          style={{
-            width: "33.33%",
-            maxHeight: "calc(100vh - 230px)",
-            overflowY: "scroll",
-            padding: "1rem",
-            backgroundColor: "#f8fafc",
-            borderRight: "1px solid #e2e8f0",
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
+          className={`job-list-col ${mobileActiveView === "details" ? "d-none d-lg-block" : "w-100"}`}
         >
           {loading ? (
-            <p className="text-center">Loading jobs...</p>
+            <p className="text-center py-5 text-muted">Loading jobs...</p>
           ) : (
             <>
               <Joblist
                 jobs={visibleJobs}
-                onSelect={setSelectedJob}
+                onSelect={(job) => {
+                  setSelectedJob(job);
+                  setMobileActiveView("details");
+                }}
                 selectedJob={selectedJob}
                 noFilters={!filterApplied}
               />
@@ -147,10 +145,84 @@ function JobListingContent() {
         </div>
 
         {/* Right: Job details */}
-        <div style={{ width: "66.66%", padding: "1.5rem", backgroundColor: "#f8fafc" }}>
-          {filterApplied && selectedJob && <Jobdetails job={selectedJob} />}
+        <div
+          className={`job-details-col ${mobileActiveView === "list" ? "d-none d-lg-block" : "w-100"}`}
+        >
+          {/* Mobile Back Button */}
+          <div className="d-lg-none mb-3">
+            <Button
+              variant="light"
+              size="sm"
+              className="border shadow-sm rounded-pill px-3 py-1 fw-semibold text-primary d-inline-flex align-items-center gap-2"
+              onClick={() => setMobileActiveView("list")}
+            >
+              <i className="bi bi-arrow-left"></i> Back to Job List
+            </Button>
+          </div>
+
+          {filterApplied && selectedJob ? (
+            <Jobdetails job={selectedJob} />
+          ) : (
+            <div className="card border-0 shadow-sm p-4 text-center d-none d-lg-block" style={{ maxWidth: 650, margin: "0 auto" }}>
+              <h5 className="fw-bold text-dark">Select a Job</h5>
+              <p className="text-muted mb-0">Choose a job from the list to preview full requirements and apply.</p>
+            </div>
+          )}
         </div>
       </div>
+
+      <style jsx global>{`
+        .job-listing-container {
+          padding-top: 110px;
+          overflow: visible !important;
+          position: relative;
+        }
+        .job-listing-split-wrap {
+          display: flex;
+          min-height: calc(100vh - 210px);
+          overflow: hidden;
+        }
+        @media (min-width: 992px) {
+          .job-list-col {
+            width: 38% !important;
+            max-height: calc(100vh - 210px);
+            overflow-y: auto;
+            padding: 1rem 1.25rem;
+            background-color: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 transparent;
+          }
+          .job-list-col::-webkit-scrollbar {
+            width: 5px;
+          }
+          .job-list-col::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+          }
+          .job-details-col {
+            width: 62% !important;
+            padding: 1rem 1.5rem;
+            background-color: #f8fafc;
+          }
+        }
+        @media (max-width: 991px) {
+          .job-listing-container {
+            padding-top: 60px !important;
+          }
+          .job-listing-split-wrap {
+            flex-direction: column;
+            min-height: auto;
+            overflow: visible;
+          }
+          .job-list-col,
+          .job-details-col {
+            width: 100% !important;
+            padding: 1rem 0.75rem !important;
+            background-color: #f8fafc;
+          }
+        }
+      `}</style>
     </div>
   );
 }

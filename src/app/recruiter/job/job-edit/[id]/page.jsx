@@ -236,26 +236,25 @@ const EditPost = () => {
     <>
       <Navbar />
       <Topbar />
-      <div style={{ paddingTop: "175px", backgroundColor: "#f5f7fa", minHeight: "100vh" }}>
-        <Container className="d-flex justify-content-center">
+      <div className="recruiter-page-container" style={{ minHeight: "100vh", backgroundColor: "#f5f7fa", paddingBottom: "40px" }}>
+        <Container className="d-flex justify-content-center px-2 px-md-3">
           <div
+            className="post-job-card w-100"
             style={{
               backgroundColor: "#fff",
-              padding: "20px",
               borderRadius: "10px",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-              width: "100%",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
               maxWidth: "1300px",
             }}
           >
             <Form onSubmit={handleSubmit}>
-              <h2 className="mb-4" style={{ color: "#05264e", fontSize: "18px" }}>
+              <h2 className="mb-4" style={{ color: "#05264e", fontSize: "1.25rem", fontWeight: "700" }}>
                 Edit Post
               </h2>
 
               {/* Job Title & Type */}
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Job Title <span style={{ color: "red" }}>*</span>
@@ -269,7 +268,7 @@ const EditPost = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Job Type <span style={{ color: "red" }}>*</span>
@@ -286,8 +285,8 @@ const EditPost = () => {
               </Row>
 
               {/* Industry & Role */}
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Industry <span style={{ color: "red" }}>*</span>
@@ -301,7 +300,7 @@ const EditPost = () => {
                     )}
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Role <span style={{ color: "red" }}>*</span>
@@ -318,8 +317,8 @@ const EditPost = () => {
               </Row>
 
               {/* Salary & Company */}
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Min Salary <span style={{ color: "red" }}>*</span>
@@ -333,7 +332,7 @@ const EditPost = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Max Salary <span style={{ color: "red" }}>*</span>
@@ -363,8 +362,8 @@ const EditPost = () => {
               </Form.Group>
 
               {/* Salary Period & City */}
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Salary Period <span style={{ color: "red" }}>*</span>
@@ -378,7 +377,7 @@ const EditPost = () => {
                     )}
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       City <span style={{ color: "red" }}>*</span>
@@ -395,8 +394,8 @@ const EditPost = () => {
               </Row>
 
               {/* Experience */}
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Min Experience <span style={{ color: "red" }}>*</span>
@@ -410,7 +409,7 @@ const EditPost = () => {
                     )}
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Max Experience <span style={{ color: "red" }}>*</span>
@@ -427,13 +426,13 @@ const EditPost = () => {
               </Row>
 
               {/* Area (Checkboxes) & Education */}
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Are You Hiring Employee For? <span style={{ color: "red" }}>*</span>
                     </Form.Label>
-                    <div className="d-flex gap-3 mt-2">
+                    <div className="d-flex flex-wrap gap-3 mt-2">
                       {areaOptions.map((option) => (
                         <Form.Check
                           key={option}
@@ -447,7 +446,7 @@ const EditPost = () => {
                     </div>
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Education <span style={{ color: "red" }}>*</span>
@@ -478,8 +477,8 @@ const EditPost = () => {
                 />
               </Form.Group>
 
-              <Row className="mb-3">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Recruiter Email <span style={{ color: "red" }}>*</span>
@@ -493,7 +492,7 @@ const EditPost = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Group>
                     <Form.Label>
                       Recruiter Mobile <span style={{ color: "red" }}>*</span>
@@ -511,7 +510,7 @@ const EditPost = () => {
                 </Col>
               </Row>
 
-              <Button type="submit" className="btn btn-primary mt-3">
+              <Button type="submit" className="btn btn-primary mt-3 w-100 w-md-auto py-2 px-4">
                 Update Job
               </Button>
             </Form>

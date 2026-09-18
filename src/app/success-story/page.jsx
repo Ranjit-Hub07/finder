@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
@@ -93,11 +93,11 @@ const SuccessStory = () => {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: "110px" }}>
+      <div style={{ paddingTop: "var(--header-offset, 70px)" }}>
         {/* Banner */}
         <div className="page-banner">
           <Container>
-            <h1 style={{ fontWeight: 800, fontSize: "40px" }}>Success Stories</h1>
+            <h1 style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 5vw, 2.5rem)" }}>Success Stories</h1>
             <p style={{ opacity: 0.9, fontSize: "16px", marginTop: "8px" }}>
               Real people. Real jobs. Real transformations — powered by Finder.
             </p>
@@ -114,7 +114,7 @@ const SuccessStory = () => {
           <Container>
             <Row className="text-center text-white">
               {stats.map((s, i) => (
-                <Col md={3} sm={6} key={i}>
+                <Col xs={6} md={3} key={i} className="mb-3 mb-md-0">
                   <div style={{ padding: "8px" }}>
                     <i className={`bi ${s.icon}`} style={{ fontSize: "28px", opacity: 0.8, display: "block", marginBottom: "6px" }} />
                     <div style={{ fontSize: "30px", fontWeight: 800, marginBottom: "4px" }}>{s.value}</div>
@@ -138,12 +138,11 @@ const SuccessStory = () => {
 
             {/* Spotlight Story */}
             <div
+              className="p-3 p-md-4 mb-4"
               style={{
                 background: "white",
                 borderRadius: "20px",
-                padding: "40px",
                 boxShadow: "0 12px 40px rgba(34,52,128,0.12)",
-                marginBottom: "40px",
                 border: `2px solid ${stories[selected].color}30`,
                 transition: "all 0.4s ease",
               }}
@@ -225,7 +224,7 @@ const SuccessStory = () => {
             {/* Story Selector Cards */}
             <Row>
               {stories.map((story, idx) => (
-                <Col md={4} sm={6} key={idx} className="mb-3">
+                <Col xs={12} sm={6} md={4} key={idx} className="mb-3">
                   <div
                     onClick={() => setSelected(idx)}
                     className="card-hover"

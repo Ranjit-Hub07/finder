@@ -164,12 +164,6 @@ const Navbar = () => {
       justifyContent: "space-between",
       alignItems: "center",
       padding: "0 15px",
-      position: "fixed",
-      top: "0px",
-      left: "0px",
-      height: "45px",
-      width: "100%",
-      zIndex: 1030,
       fontSize: "13.5px",
       borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
     },
@@ -197,14 +191,9 @@ const Navbar = () => {
     navbar: {
       backgroundColor: "#ffffff",
       padding: "0 15px",
-      height: "65px",
       display: "flex",
       alignItems: "center",
       width: "100%",
-      position: "fixed",
-      top: "45px",
-      left: "0px",
-      zIndex: 1020,
       fontSize: "15px",
       boxShadow: "0 4px 20px -2px rgba(15, 23, 42, 0.06)",
       borderBottom: "1px solid #e2e8f0",
@@ -231,8 +220,8 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ---- TOP BLUE BAR ---- */}
-      <div style={styles.container}>
+      {/* ---- TOP BLUE BAR (Desktop only) ---- */}
+      <div className="top-contact-bar d-none d-md-flex" style={styles.container}>
         <div style={styles.contactInfo}>
           <span className="no-hover-underline">
             <i className="bi bi-telephone" style={styles.icon} />
@@ -264,7 +253,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div style={styles.navbar}>
+      <div className="main-app-navbar" style={styles.navbar}>
         <div className="container d-flex justify-content-between align-items-center">
           <Link href="/home" className="d-flex align-items-center text-decoration-none">
             <Image
@@ -536,10 +525,20 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <Dropdown.Item href="/seeker/profile">
+                    <Dropdown.Item href="/seeker/profile" className="py-2 px-3 rounded-2">
+                      <i className="bi bi-person-circle me-2 text-primary"></i>
                       My Account
                     </Dropdown.Item>
-                    <Dropdown.Item href="/seeker/seeker-changepassword">
+                    <Dropdown.Item href="/seeker/applied-jobs" className="py-2 px-3 rounded-2">
+                      <i className="bi bi-send-check-fill me-2 text-primary"></i>
+                      Applied Jobs
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/seeker/saved-jobs" className="py-2 px-3 rounded-2">
+                      <i className="bi bi-bookmark-fill me-2 text-primary"></i>
+                      Saved Jobs
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/seeker/seeker-changepassword" className="py-2 px-3 rounded-2">
+                      <i className="bi bi-key me-2 text-secondary"></i>
                       Change Password
                     </Dropdown.Item>
                   </>
@@ -572,12 +571,33 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ---------- MOBILE SLIDE MENU ---------- */}
-      <div className={`mobile-slide-menu ${isMobileMenuOpen ? "open" : ""}`}>
-        <i
-          className="bi bi-x-lg close-btn"
+      {/* ---------- MOBILE BACKDROP OVERLAY ---------- */}
+      {isMobileMenuOpen && (
+        <div
+          className="mobile-menu-backdrop"
           onClick={() => setIsMobileMenuOpen(false)}
         />
+      )}
+
+      {/* ---------- MOBILE SLIDE MENU ---------- */}
+      <div className={`mobile-slide-menu ${isMobileMenuOpen ? "open" : ""}`}>
+        <div className="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+          <Link href="/home" onClick={() => setIsMobileMenuOpen(false)} className="text-decoration-none">
+            <Image
+              src="/image/finder_logo.svg"
+              alt="Finder Logo"
+              width={110}
+              height={28}
+              style={{ height: "26px", width: "auto" }}
+            />
+          </Link>
+          <i
+            className="bi bi-x-lg close-btn mb-0 p-2"
+            style={{ cursor: "pointer", fontSize: "20px", color: "#0f172a" }}
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-label="Close menu"
+          />
+        </div>
 
         <div className="mobile-links">
           <Link href="/home" onClick={() => setIsMobileMenuOpen(false)}>
@@ -691,12 +711,28 @@ const Navbar = () => {
                 href="/seeker/profile"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
+                <i className="bi bi-person-circle me-2 text-primary"></i>
                 My Account
+              </Link>
+              <Link
+                href="/seeker/applied-jobs"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <i className="bi bi-send-check-fill me-2 text-primary"></i>
+                Applied Jobs
+              </Link>
+              <Link
+                href="/seeker/saved-jobs"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <i className="bi bi-bookmark-fill me-2 text-primary"></i>
+                Saved Jobs
               </Link>
               <Link
                 href="/seeker/seeker-changepassword"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
+                <i className="bi bi-key me-2 text-secondary"></i>
                 Change Password
               </Link>
               <button
@@ -757,35 +793,74 @@ const Navbar = () => {
           color: inherit !important;
         }
 
+        .top-contact-bar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 45px;
+          z-index: 1030;
+        }
+
+        .main-app-navbar {
+          position: fixed;
+          top: 45px;
+          left: 0;
+          width: 100%;
+          height: 65px;
+          z-index: 1020;
+          transition: top 0.2s ease, height 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+          .main-app-navbar {
+            top: 0px !important;
+            height: 60px !important;
+          }
+        }
+
+        .mobile-menu-backdrop {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: rgba(15, 23, 42, 0.6);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          z-index: 9998;
+          animation: fadeInBackdrop 0.25s ease;
+        }
+
+        @keyframes fadeInBackdrop {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
         .mobile-slide-menu {
           position: fixed;
           top: 0;
-          right: -300px;
-          width: 300px;
+          right: -340px;
+          width: 320px;
+          max-width: 85vw;
           height: 100vh;
+          max-height: 100vh;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
           background: #ffffff;
           z-index: 9999;
-          padding: 25px;
-          box-shadow: -4px 0 20px rgba(15, 23, 42, 0.15);
-          transition: right 0.35s ease-in-out;
+          padding: 20px;
+          box-shadow: -4px 0 25px rgba(15, 23, 42, 0.2);
+          transition: right 0.32s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .mobile-slide-menu.open {
           right: 0;
         }
 
-        .mobile-slide-menu .close-btn {
-          font-size: 26px;
-          cursor: pointer;
-          display: block;
-          text-align: right;
-          margin-bottom: 25px;
-          color: #0f172a;
-        }
-
         .mobile-links a {
           display: block;
-          padding: 12px 0;
+          padding: 13px 4px;
           font-size: 15px;
           font-weight: 500;
           color: #1e293b;

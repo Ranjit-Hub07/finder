@@ -56,15 +56,16 @@ const BulkMail = () => {
       <Topbar />
 
       <div
+        className="recruiter-page-container"
         style={{
-          paddingTop: "175px",
           background: "linear-gradient(135deg, #f5f9ff 0%, #eef3ff 100%)",
           minHeight: "100vh",
+          paddingBottom: "40px",
         }}
       >
-        <div className="container py-5">
+        <div className="container py-3 py-md-5">
           <div
-            className="mx-auto p-4 p-md-5"
+            className="mx-auto p-3 p-sm-4 p-md-5"
             style={{
               maxWidth: "840px",
               background: "#fff",

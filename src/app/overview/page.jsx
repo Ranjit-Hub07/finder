@@ -163,14 +163,14 @@ const OverviewPage = () => {
       <Topbar />
 
       <div
+        className="recruiter-page-container"
         style={{
-          paddingTop: "175px",
           minHeight: "100vh",
           backgroundColor: "#f8fafc",
           paddingBottom: "60px",
         }}
       >
-        <div className="container-fluid py-4 px-lg-5 px-3">
+        <div className="container-fluid py-4 px-lg-5 px-2 px-sm-3">
           {/* ===================== HERO / HEADER BANNER ===================== */}
           <div
             className="p-4 mb-4 rounded-4"
@@ -371,15 +371,23 @@ const OverviewPage = () => {
           >
             <div className="d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-3">
               {/* Quick Jump Buttons */}
-              <div className="d-flex flex-wrap gap-2 align-items-center">
-                <span className="text-muted small fw-bold me-1 text-uppercase" style={{ fontSize: "11px" }}>
+              <div
+                className="d-flex gap-2 align-items-center pb-2 pb-md-0"
+                style={{
+                  overflowX: "auto",
+                  whiteSpace: "nowrap",
+                  WebkitOverflowScrolling: "touch",
+                  maxWidth: "100%",
+                }}
+              >
+                <span className="text-muted small fw-bold me-1 text-uppercase flex-shrink-0" style={{ fontSize: "11px" }}>
                   Filter / Jump:
                 </span>
                 {stageOptions.map((stage) => (
                   <button
                     key={stage.id}
                     type="button"
-                    className={`btn btn-sm rounded-pill fw-semibold d-inline-flex align-items-center gap-1 ${
+                    className={`btn btn-sm rounded-pill fw-semibold d-inline-flex align-items-center gap-1 flex-shrink-0 ${
                       activeStageFilter === stage.id ? "text-white" : "text-secondary bg-light"
                     }`}
                     style={{
@@ -416,7 +424,7 @@ const OverviewPage = () => {
               </div>
 
               {/* Instant Search Bar */}
-              <div style={{ minWidth: "260px" }}>
+              <div className="w-100 w-md-auto" style={{ minWidth: "220px" }}>
                 <div className="input-group input-group-sm">
                   <span className="input-group-text bg-light border-end-0 text-muted">
                     <i className="bi bi-search"></i>
@@ -446,7 +454,7 @@ const OverviewPage = () => {
           {/* ===================== MAIN GRID (TABLES + SIDEBAR) ===================== */}
           <div className="d-flex flex-lg-row flex-column gap-4 align-items-start">
             {/* ---------------- LEFT SECTION (TABLES) ---------------- */}
-            <div className="flex-grow-1 w-100">
+            <div className="flex-grow-1 w-100" style={{ minWidth: 0 }}>
               {(activeStageFilter === "all" || activeStageFilter === "awaiting") && (
                 <div ref={awaitingRef}>
                   <CandidatesAwaitingReview data={awaiting} />
@@ -491,7 +499,7 @@ const OverviewPage = () => {
             </div>
 
             {/* ---------------- RIGHT SIDEBAR ---------------- */}
-            <div style={{ width: "340px", minWidth: "300px", flexShrink: 0 }}>
+            <div className="overview-sidebar w-100" style={{ maxWidth: "100%" }}>
               {/* -------- SUBSCRIPTION SUMMARY CARD -------- */}
               <div
                 className="sidebar-card mb-4"
@@ -757,6 +765,14 @@ const OverviewPage = () => {
           font-weight: 600;
           background: #f1f5f9;
           color: #475569;
+        }
+
+        @media (min-width: 992px) {
+          .overview-sidebar {
+            width: 340px !important;
+            min-width: 300px !important;
+            flex-shrink: 0 !important;
+          }
         }
       `}</style>
     </>

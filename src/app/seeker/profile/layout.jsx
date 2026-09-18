@@ -1,13 +1,16 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Container, Row, Col } from "react-bootstrap";
 import Navbar from "@/components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "@/components/Footer";
 import ProfileSnapshot from "./components/ProfileSnapshot";
+import SavedJobs from "./components/SavedJobs";
+import AppliedJobs from "./components/AppliedJobs";
 import Skills from "./components/Skills";
 import WorkHistory from "./components/WorkHistory";
 import Projects from "./components/Projects";
@@ -17,11 +20,27 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import BackToTop from "@/components/BackToTop";
 import useSeekerGuard from "@/hooks/useSeekerGuard";
 
+// Isolated sync component so useSearchParams is safely within a Suspense boundary
+function SectionQueryParamSync({ onSectionChange }) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const section = searchParams?.get("section");
+    if (section) {
+      onSectionChange(section);
+    }
+  }, [searchParams, onSectionChange]);
+  return null;
+}
+
 const ProfileLayout = () => {
   useSeekerGuard();
   const [user, setUser] = useState(null);
   const [activeSection, setActiveSection] = useState("profileSnapshot");
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const handleSectionSync = useCallback((section) => {
+    setActiveSection(section);
+  }, []);
 
   // 🔹 Avatar state
   const [profilePicBase, setProfilePicBase] = useState(
@@ -189,6 +208,10 @@ const ProfileLayout = () => {
 
   const renderContent = () => {
     switch (activeSection) {
+      case "savedJobs":
+        return <SavedJobs onUpdated={() => setRefreshTrigger((prev) => prev + 1)} />;
+      case "appliedJobs":
+        return <AppliedJobs onUpdated={() => setRefreshTrigger((prev) => prev + 1)} />;
       case "skills":
         return <Skills onUpdated={() => setRefreshTrigger((prev) => prev + 1)} />;
       case "workHistory":
@@ -210,7 +233,11 @@ const ProfileLayout = () => {
     <>
       <Navbar />
 
-      <div style={{ paddingTop: "110px", backgroundColor: "#f8fafc", minHeight: "100vh" }}>
+      <Suspense fallback={null}>
+        <SectionQueryParamSync onSectionChange={handleSectionSync} />
+      </Suspense>
+
+      <div style={{ paddingTop: "var(--header-offset, 70px)", backgroundColor: "#f8fafc", minHeight: "100vh" }}>
         {/* ⭐ Modern Page Banner */}
         <div className="page-banner">
           <Container className="d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-3">
@@ -233,10 +260,10 @@ const ProfileLayout = () => {
         </div>
 
         {/* ⭐ Profile Showcase Container */}
-        <Container className="py-4">
+        <Container className="py-3 py-md-4 px-2 px-sm-3">
           {/* Profile Header Card */}
           <div
-            className="bg-white rounded-4 p-4 mb-4 border"
+            className="bg-white rounded-4 p-3 p-md-4 mb-4 border"
             style={{
               boxShadow: "0 4px 20px -2px rgba(15, 23, 42, 0.05)",
               borderColor: "#e2e8f0",
@@ -443,7 +470,7 @@ const ProfileLayout = () => {
 
             <Col lg={8} xl={9}>
               <div
-                className="bg-white p-4 p-md-5 rounded-4 border"
+                className="bg-white p-3 p-sm-4 p-md-5 rounded-4 border"
                 style={{
                   boxShadow: "0 4px 20px -2px rgba(15, 23, 42, 0.05)",
                   borderColor: "#e2e8f0",

@@ -9,11 +9,13 @@ import {
   FaIdCard,
   FaLanguage,
   FaSpinner,
+  FaPaperPlane,
 } from "react-icons/fa";
 
 // Sidebar tabs
 const tabs = [
   { name: "Profile Snapshot", section: "profileSnapshot", icon: <FaUserCircle /> },
+  { name: "Applied Jobs", section: "appliedJobs", icon: <FaPaperPlane /> },
   { name: "Skills & Expertise", section: "skills", icon: <FaLightbulb /> },
   { name: "Work History", section: "workHistory", icon: <FaBriefcase /> },
   { name: "Featured Projects", section: "projects", icon: <FaGlobe /> },
@@ -73,28 +75,31 @@ const Sidebar = ({ activeSection, setActiveSection, refreshTrigger }) => {
     <div className="d-flex flex-column gap-3">
       {/* Navigation Tabs Card */}
       <div
-        className="bg-white rounded-4 p-3 border"
+        className="bg-white rounded-4 p-2 p-md-3 border"
         style={{
           boxShadow: "0 4px 20px -2px rgba(15, 23, 42, 0.05)",
           borderColor: "#e2e8f0",
         }}
       >
-        <div className="d-flex flex-column gap-2">
+        <div
+          className="d-flex flex-row flex-lg-column gap-2 overflow-x-auto pb-1 pb-lg-0"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           {tabs.map((tab, index) => {
             const isActive = tab.section === activeSection;
             return (
               <button
                 key={index}
                 onClick={() => setActiveSection(tab.section)}
-                className={`d-flex align-items-center gap-3 px-3 py-2 rounded-3 w-100 text-start border-0 ${
-                  isActive ? "text-white shadow-sm" : "text-secondary bg-transparent"
+                className={`d-inline-flex align-items-center gap-2 gap-lg-3 px-3 py-2 rounded-3 text-start border-0 text-nowrap flex-shrink-0 flex-lg-shrink-1 ${
+                  isActive ? "text-white shadow-sm" : "text-secondary bg-light bg-lg-transparent"
                 }`}
                 style={{
-                  fontSize: "14.5px",
+                  fontSize: "14px",
                   fontWeight: isActive ? "600" : "500",
                   background: isActive
                     ? "linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%)"
-                    : "transparent",
+                    : undefined,
                   transition: "all 0.2s ease",
                   cursor: "pointer",
                 }}
@@ -106,7 +111,7 @@ const Sidebar = ({ activeSection, setActiveSection, refreshTrigger }) => {
                 }}
                 onMouseLeave={(e) => {
                   if (!isActive) {
-                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.backgroundColor = "";
                     e.currentTarget.style.color = "#64748b";
                   }
                 }}

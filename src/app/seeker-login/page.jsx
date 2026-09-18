@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -56,11 +56,11 @@ const SeekerLogin = () => {
   return (
     <>
       <Navbar />
-       <div style={{ paddingTop: "120px" }}>
-      <div className="container d-flex justify-content-center align-items-center vh-100">
-        <div className="text-center w-100" style={{ maxWidth: "500px", padding: "40px", borderRadius: "12px" }}>
-          <h6 className="text-primary">Welcome back!</h6>
-          <h2 className="fw-bold mb-4" style={{ fontSize: "36px", color: "#05264e" }}>Seeker Login</h2>
+      <div style={{ paddingTop: "var(--header-offset, 70px)", minHeight: "calc(100vh - 120px)", display: "flex", alignItems: "center" }}>
+      <div className="container d-flex justify-content-center align-items-center py-4 py-md-5">
+        <div className="text-center w-100 p-3 p-sm-4 p-md-5 bg-white rounded-4 shadow-sm" style={{ maxWidth: "480px" }}>
+          <h6 className="text-primary fw-semibold">Welcome back!</h6>
+          <h2 className="fw-bold mb-4" style={{ fontSize: "clamp(1.6rem, 4vw, 2.2rem)", color: "#05264e" }}>Seeker Login</h2>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3 text-start">

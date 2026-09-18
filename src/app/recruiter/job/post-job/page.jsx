@@ -161,18 +161,18 @@ const PostJob = () => {
 
       {/* ✅ EVERYTHING BELOW IS 100% UNTOUCHED UI/STYLING FROM YOU */}
       <div
+        className="recruiter-page-container py-3 py-md-4"
         style={{
-          paddingTop: "175px",
           background: "linear-gradient(135deg, #f5f8ff 0%, #ebf1ff 100%)",
           minHeight: "100vh",
         }}
       >
-        <Container>
+        <Container className="px-2 px-md-3">
           <div
+            className="post-job-card w-100"
             style={{
               background: "#fff",
               borderRadius: "15px",
-              padding: "35px",
               boxShadow: "0 8px 30px rgba(0,0,0,0.10)",
               border: "1px solid #e6ecf5",
               maxWidth: "1300px",
@@ -182,15 +182,15 @@ const PostJob = () => {
             {/* HEADER */}
             <div
               style={{
-                padding: "20px",
+                padding: "16px 20px",
                 background: "linear-gradient(90deg,#3b82f6,#2563eb)",
                 borderRadius: "10px",
                 marginBottom: "25px",
                 color: "#fff",
               }}
             >
-              <h3 style={{ margin: 0, fontWeight: "600" }}>Post a New Job</h3>
-              <p style={{ margin: 0, opacity: 0.9 }}>
+              <h3 style={{ margin: 0, fontWeight: "600", fontSize: "20px" }}>Post a New Job</h3>
+              <p style={{ margin: 0, opacity: 0.9, fontSize: "14px" }}>
                 Fill in the details below to publish a job opening.
               </p>
             </div>
@@ -199,8 +199,8 @@ const PostJob = () => {
               {/* SECTION HEADER */}
               <h5 className="mb-3 fw-bold text-primary">Basic Job Details</h5>
 
-              <Row className="mb-4">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Job Title <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -212,7 +212,7 @@ const PostJob = () => {
                     required
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Job Type <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -226,8 +226,8 @@ const PostJob = () => {
                 </Col>
               </Row>
 
-              <Row className="mb-4">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Industry <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -239,7 +239,7 @@ const PostJob = () => {
                     required
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Role <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -254,11 +254,11 @@ const PostJob = () => {
               </Row>
 
               {/* AREA SECTION */}
-              <div className="mb-4">
+              <div className="mb-3">
                 <Form.Label>
                   Are You Hiring Employee For? <span style={{ color: "red" }}>*</span>
                 </Form.Label>
-                <div className="d-flex gap-3 mt-2">
+                <div className="d-flex flex-wrap gap-3 mt-2">
                   {["Rural", "Urban", "Both"].map((option) => (
                     <Form.Check
                       key={option}
@@ -274,8 +274,8 @@ const PostJob = () => {
 
               <h5 className="mt-4 mb-3 fw-bold text-primary">Salary & Company</h5>
 
-              <Row className="mb-4">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Min Salary <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -287,7 +287,7 @@ const PostJob = () => {
                     required
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Max Salary <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -301,20 +301,21 @@ const PostJob = () => {
                 </Col>
               </Row>
 
-              <Form.Label>
-                Hiring For <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Form.Control
-                className="mb-4"
-                type="text"
-                name="job_company"
-                value={formData.job_company}
-                onChange={handleChange}
-                required
-              />
+              <div className="mb-3">
+                <Form.Label>
+                  Hiring For <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="job_company"
+                  value={formData.job_company}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <Row className="mb-4">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Salary Period <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -326,7 +327,7 @@ const PostJob = () => {
                     required
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label>
                     City <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -344,8 +345,8 @@ const PostJob = () => {
                 Experience & Qualification
               </h5>
 
-              <Row className="mb-4">
-                <Col>
+              <Row className="g-3 mb-3">
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Min Experience <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -357,7 +358,7 @@ const PostJob = () => {
                     required
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Max Experience <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -371,37 +372,39 @@ const PostJob = () => {
                 </Col>
               </Row>
 
-              <Form.Label>
-                Highest Qualification <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Select
-                className="mb-4"
-                options={educationOptions}
-                placeholder="Select Qualification"
-                onChange={(opt) => handleSelectChange("job_mineducation", opt)}
-                classNamePrefix="react-select"
-                required
-              />
+              <div className="mb-3">
+                <Form.Label>
+                  Highest Qualification <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Select
+                  options={educationOptions}
+                  placeholder="Select Qualification"
+                  onChange={(opt) => handleSelectChange("job_mineducation", opt)}
+                  classNamePrefix="react-select"
+                  required
+                />
+              </div>
 
               <h5 className="mt-4 mb-3 fw-bold text-primary">
                 Job Description & Contact
               </h5>
 
-              <Form.Label>
-                Description <span style={{ color: "red" }}>*</span>
-              </Form.Label>
-              <Form.Control
-                className="mb-4"
-                as="textarea"
-                rows={4}
-                name="job_desc"
-                value={formData.job_desc}
-                onChange={handleChange}
-                required
-              />
+              <div className="mb-3">
+                <Form.Label>
+                  Description <span style={{ color: "red" }}>*</span>
+                </Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={4}
+                  name="job_desc"
+                  value={formData.job_desc}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <Row className="mb-4">
-                <Col>
+              <Row className="g-3 mb-4">
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Recruiter Email <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -413,7 +416,7 @@ const PostJob = () => {
                     required
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label>
                     Recruiter Phone <span style={{ color: "red" }}>*</span>
                   </Form.Label>
@@ -436,10 +439,11 @@ const PostJob = () => {
                 <Button
                   variant="primary"
                   type="submit"
+                  className="w-100 w-sm-auto px-4 py-2"
                   style={{
-                    padding: "10px 30px",
                     borderRadius: "8px",
-                    fontSize: "16px",
+                    fontSize: "15px",
+                    fontWeight: "600",
                   }}
                 >
                   Submit Job
@@ -452,6 +456,20 @@ const PostJob = () => {
 
       <Footer />
       <style jsx global>{`
+        .recruiter-page-container {
+          padding-top: 175px;
+        }
+        .post-job-card {
+          padding: 35px;
+        }
+        @media (max-width: 768px) {
+          .recruiter-page-container {
+            padding-top: 120px !important;
+          }
+          .post-job-card {
+            padding: 18px 14px !important;
+          }
+        }
         *:not(input):not(textarea):not(select) {
           caret-color: transparent !important;
         }

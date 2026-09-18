@@ -115,17 +115,28 @@ export default function Home() {
 
   // ✅ Fetch latest jobs
   useEffect(() => {
+    let isMounted = true;
     async function fetchLatestJobs() {
       try {
         const res = await fetch("/api/recruiter/job/latest");
-        if (!res.ok) throw new Error("Failed to fetch latest jobs");
+        if (!res.ok) {
+          console.warn("Latest jobs API returned non-OK status:", res.status);
+          if (isMounted) setLatestJobs([]);
+          return;
+        }
         const data = await res.json();
-        setLatestJobs(data.jobs || []);
+        if (isMounted) {
+          setLatestJobs(data.jobs || []);
+        }
       } catch (error) {
-        console.error("Error loading latest jobs:", error);
+        console.warn("Could not load latest jobs:", error);
+        if (isMounted) setLatestJobs([]);
       }
     }
     fetchLatestJobs();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const experienceOptions = [
@@ -183,18 +194,11 @@ export default function Home() {
       <Navbar />
 
       {/* HERO SECTION */}
-      <div
-        style={{
-          background: "linear-gradient(180deg, #edf2f9 0%, #f8fafc 100%)",
-          paddingTop: "175px",
-          paddingBottom: "130px",
-          position: "relative",
-        }}
-      >
+      <div className="home-hero-section">
         <Container>
           <Row className="align-items-center">
               <Col md={6}>
-                <h1 style={{ fontWeight: "800", fontSize: "44px", color: "#0f172a", letterSpacing: "-0.5px" }}>
+                <h1 className="home-hero-title" style={{ fontWeight: "800", fontSize: "44px", color: "#0f172a", letterSpacing: "-0.5px" }}>
                   The{" "}
                   <span
                     style={{
@@ -211,7 +215,7 @@ export default function Home() {
                   <br />
                   to Get Your <span style={{ color: "#4f46e5" }}>Dream Job</span>
                 </h1>
-                <p className="text-muted mt-4" style={{ fontSize: "16px", lineHeight: "1.7" }}>
+                <p className="text-muted mt-3 mt-md-4" style={{ fontSize: "15.5px", lineHeight: "1.7" }}>
                   Each month, more than 3 million job seekers turn to our
                   website in their search for work, making over 140,000
                   applications every single day
@@ -219,11 +223,10 @@ export default function Home() {
 
                 {/* Search Bar */}
                 <div
-                  className="d-flex align-items-center bg-white p-2 ps-3 pe-2 mt-4 flex-wrap flex-md-nowrap gap-2 gap-md-0"
+                  className="home-search-bar bg-white p-2 mt-4"
                   style={{
                     width: "100%",
                     maxWidth: "860px",
-                    minHeight: "64px",
                     borderRadius: "16px",
                     position: "relative",
                     zIndex: 1020,
@@ -242,208 +245,184 @@ export default function Home() {
                     e.currentTarget.style.borderColor = "#e2e8f0";
                   }}
                 >
-                  {/* Experience */}
-                  <div
-                    className="d-flex align-items-center px-3"
-                    style={{
-                      borderRight: "1px solid #e6e9ef",
-                      height: "100%",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <i
-                      className="bi bi-briefcase text-secondary me-2"
-                      style={{ fontSize: "18px" }}
-                    ></i>
-                    {isClient ? (
-                      <div style={{ width: "150px" }}>
-                        <Select
-                          options={experienceOptions}
-                          value={
-                            experience
-                              ? experienceOptions.find((opt) => opt.value === experience) || { value: experience, label: experience }
-                              : null
-                          }
-                          onChange={(selected) =>
-                            setExperience(selected?.value || "")
-                          }
-                          placeholder="Exp (years)"
-                          isSearchable
-                          menuPortalTarget={typeof document !== "undefined" ? document.body : null}
-                          menuPosition="fixed"
-                          styles={{
-                            control: (base) => ({
-                              ...base,
-                              border: "none",
-                              boxShadow: "none",
-                              minHeight: "40px",
-                              fontSize: "14px",
-                              cursor: "pointer",
-                              backgroundColor: "transparent",
-                            }),
-                            menuPortal: (base) => ({ ...base, zIndex: 99999 }),
-                            menu: (base) => ({
-                              ...base,
-                              zIndex: 99999,
-                              fontSize: "14px",
-                              borderRadius: "12px",
-                              boxShadow: "0 10px 30px rgba(15, 23, 42, 0.15)",
-                              border: "1px solid #e2e8f0",
-                              padding: "6px",
-                            }),
-                            option: (base, state) => ({
-                              ...base,
-                              borderRadius: "8px",
-                              padding: "8px 12px",
-                              cursor: "pointer",
-                              backgroundColor: state.isSelected
-                                ? "#4f46e5"
-                                : state.isFocused
-                                ? "rgba(99, 102, 241, 0.1)"
-                                : "transparent",
-                              color: state.isSelected ? "#ffffff" : "#1e293b",
-                              fontWeight: state.isSelected ? "600" : "500",
-                            }),
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <Form.Select
-                        className="border-0 p-0"
-                        style={{ width: "150px" }}
-                        disabled
+                  <div className="d-flex flex-column flex-md-row align-items-stretch align-items-md-center gap-2 gap-md-0">
+                    {/* Experience */}
+                    <div className="search-col-exp d-flex align-items-center px-3 py-1 py-md-0">
+                      <i
+                        className="bi bi-briefcase text-secondary me-2 flex-shrink-0"
+                        style={{ fontSize: "18px" }}
+                      ></i>
+                      {isClient ? (
+                        <div className="w-100" style={{ minWidth: "140px" }}>
+                          <Select
+                            options={experienceOptions}
+                            value={
+                              experience
+                                ? experienceOptions.find((opt) => opt.value === experience) || { value: experience, label: experience }
+                                : null
+                            }
+                            onChange={(selected) =>
+                              setExperience(selected?.value || "")
+                            }
+                            placeholder="Exp (years)"
+                            isSearchable
+                            menuPortalTarget={typeof document !== "undefined" ? document.body : null}
+                            menuPosition="fixed"
+                            styles={{
+                              control: (base) => ({
+                                ...base,
+                                border: "none",
+                                boxShadow: "none",
+                                minHeight: "40px",
+                                fontSize: "14px",
+                                cursor: "pointer",
+                                backgroundColor: "transparent",
+                              }),
+                              menuPortal: (base) => ({ ...base, zIndex: 99999 }),
+                              menu: (base) => ({
+                                ...base,
+                                zIndex: 99999,
+                                fontSize: "14px",
+                                borderRadius: "12px",
+                                boxShadow: "0 10px 30px rgba(15, 23, 42, 0.15)",
+                                border: "1px solid #e2e8f0",
+                                padding: "6px",
+                              }),
+                              option: (base, state) => ({
+                                ...base,
+                                borderRadius: "8px",
+                                padding: "8px 12px",
+                                cursor: "pointer",
+                                backgroundColor: state.isSelected
+                                  ? "#4f46e5"
+                                  : state.isFocused
+                                  ? "rgba(99, 102, 241, 0.1)"
+                                  : "transparent",
+                                color: state.isSelected ? "#ffffff" : "#1e293b",
+                                fontWeight: state.isSelected ? "600" : "500",
+                              }),
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <Form.Select
+                          className="border-0 p-0 w-100"
+                          disabled
+                        >
+                          <option>Loading...</option>
+                        </Form.Select>
+                      )}
+                    </div>
+
+                    {/* Location */}
+                    <div className="search-col-loc d-flex align-items-center px-3 py-1 py-md-0">
+                      <i
+                        className="bi bi-geo-alt text-secondary me-2 flex-shrink-0"
+                        style={{ fontSize: "18px" }}
+                      ></i>
+                      {isClient ? (
+                        <div className="w-100" style={{ minWidth: "160px" }}>
+                          <Select
+                            options={cities.map((city) => ({
+                              value: city.name,
+                              label: city.name,
+                            }))}
+                            value={
+                              location ? { value: location, label: location } : null
+                            }
+                            onChange={(selected) =>
+                              setLocation(selected?.value || "")
+                            }
+                            placeholder="Select Location"
+                            isSearchable
+                            menuPortalTarget={typeof document !== "undefined" ? document.body : null}
+                            menuPosition="fixed"
+                            styles={{
+                              control: (base) => ({
+                                ...base,
+                                border: "none",
+                                boxShadow: "none",
+                                minHeight: "40px",
+                                fontSize: "14px",
+                                cursor: "pointer",
+                                backgroundColor: "transparent",
+                              }),
+                              menuPortal: (base) => ({ ...base, zIndex: 99999 }),
+                              menu: (base) => ({
+                                ...base,
+                                zIndex: 99999,
+                                fontSize: "14px",
+                                borderRadius: "12px",
+                                boxShadow: "0 10px 30px rgba(15, 23, 42, 0.15)",
+                                border: "1px solid #e2e8f0",
+                                padding: "6px",
+                              }),
+                              option: (base, state) => ({
+                                ...base,
+                                borderRadius: "8px",
+                                padding: "8px 12px",
+                                cursor: "pointer",
+                                backgroundColor: state.isSelected
+                                  ? "#4f46e5"
+                                  : state.isFocused
+                                  ? "rgba(99, 102, 241, 0.1)"
+                                  : "transparent",
+                                color: state.isSelected ? "#ffffff" : "#1e293b",
+                                fontWeight: state.isSelected ? "600" : "500",
+                              }),
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <Form.Select
+                          className="border-0 p-0 w-100"
+                          disabled
+                        >
+                          <option>Loading...</option>
+                        </Form.Select>
+                      )}
+                    </div>
+
+                    {/* Keyword */}
+                    <div className="search-col-kw d-flex align-items-center flex-grow-1 px-3 py-1 py-md-0">
+                      <i
+                        className="bi bi-grid text-secondary me-2 flex-shrink-0"
+                        style={{ fontSize: "18px" }}
+                      ></i>
+                      <Form.Control
+                        type="text"
+                        placeholder="Your keyword..."
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
+                        className="border-0 shadow-none px-0"
+                        style={{ fontSize: "14px", color: "#333" }}
+                      />
+                    </div>
+
+                    {/* Search Btn */}
+                    <div className="search-col-btn px-2 py-1 py-md-0">
+                      <Button
+                        onClick={handleSearch}
+                        className="search-btn w-100"
+                        style={{
+                          height: "45px",
+                          borderRadius: "8px",
+                          padding: "0 24px",
+                          fontWeight: "600",
+                          fontSize: "14.5px",
+                        }}
                       >
-                        <option>Loading...</option>
-                      </Form.Select>
-                    )}
-                  </div>
-
-                  {/* Location */}
-                  <div
-                    className="d-flex align-items-center px-3"
-                    style={{
-                      borderRight: "1px solid #e6e9ef",
-                      height: "100%",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <i
-                      className="bi bi-geo-alt text-secondary me-2"
-                      style={{ fontSize: "18px" }}
-                    ></i>
-                    {isClient ? (
-                      <div style={{ width: "200px" }}>
-                        <Select
-                          options={cities.map((city) => ({
-                            value: city.name,
-                            label: city.name,
-                          }))}
-                          value={
-                            location ? { value: location, label: location } : null
-                          }
-                          onChange={(selected) =>
-                            setLocation(selected?.value || "")
-                          }
-                          placeholder="Select Location"
-                          isSearchable
-                          menuPortalTarget={typeof document !== "undefined" ? document.body : null}
-                          menuPosition="fixed"
-                          styles={{
-                            control: (base) => ({
-                              ...base,
-                              border: "none",
-                              boxShadow: "none",
-                              minHeight: "40px",
-                              fontSize: "14px",
-                              cursor: "pointer",
-                              backgroundColor: "transparent",
-                            }),
-                            menuPortal: (base) => ({ ...base, zIndex: 99999 }),
-                            menu: (base) => ({
-                              ...base,
-                              zIndex: 99999,
-                              fontSize: "14px",
-                              borderRadius: "12px",
-                              boxShadow: "0 10px 30px rgba(15, 23, 42, 0.15)",
-                              border: "1px solid #e2e8f0",
-                              padding: "6px",
-                            }),
-                            option: (base, state) => ({
-                              ...base,
-                              borderRadius: "8px",
-                              padding: "8px 12px",
-                              cursor: "pointer",
-                              backgroundColor: state.isSelected
-                                ? "#4f46e5"
-                                : state.isFocused
-                                ? "rgba(99, 102, 241, 0.1)"
-                                : "transparent",
-                              color: state.isSelected ? "#ffffff" : "#1e293b",
-                              fontWeight: state.isSelected ? "600" : "500",
-                            }),
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <Form.Select
-                        className="border-0 p-0"
-                        style={{ width: "150px" }}
-                        disabled
-                      >
-                        <option>Loading...</option>
-                      </Form.Select>
-                    )}
-                  </div>
-
-                  {/* Keyword */}
-                  <div
-                    className="d-flex align-items-center flex-grow-1 px-3"
-                    style={{
-                      borderRight: "1px solid #e6e9ef",
-                      height: "100%",
-                    }}
-                  >
-                    <i
-                      className="bi bi-grid text-secondary me-2"
-                      style={{ fontSize: "18px" }}
-                    ></i>
-                    <Form.Control
-                      type="text"
-                      placeholder="Your keyword..."
-                      value={keyword}
-                      onChange={(e) => setKeyword(e.target.value)}
-                      className="border-0 shadow-none"
-                      style={{ fontSize: "14px", color: "#333" }}
-                    />
-                  </div>
-
-                  {/* Search Btn */}
-                  <div className="px-3">
-                    <Button
-                      onClick={handleSearch}
-                      style={{
-                        backgroundColor: "#3B66F6",
-                        border: "none",
-                        height: "45px",
-                        borderRadius: "8px",
-                        padding: "0 24px",
-                        fontWeight: "500",
-                        fontSize: "15px",
-                        boxShadow: "0 4px 10px rgba(4, 21, 78, 0.3)",
-                       transition: "all 0.3s ease",     
-                       }}
-                       className="search-btn"
-                    >
-                      <i className="bi bi-search me-2"></i> SEARCH
-                    </Button>
+                        <i className="bi bi-search me-2"></i> SEARCH
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Col>
 
- {/* Hero Image with Automatic Floating Animation */}
-<Col md={6} className="text-center position-relative mt-5 mt-md-0">
+              {/* Hero Image with Automatic Floating Animation */}
+              <Col md={6} className="text-center position-relative mt-4 mt-md-0">
   <div
-    className="position-relative d-inline-block hero-auto-animate"
+    className="position-relative d-inline-block hero-auto-animate mw-100"
     style={{
       cursor: "pointer",
     }}
@@ -453,7 +432,7 @@ export default function Home() {
       alt="Team working"
       width={350}
       height={250}
-      className="rounded hero-main"
+      className="rounded hero-main img-fluid"
       style={{
         borderRadius: "20px",
         objectFit: "cover",
@@ -462,17 +441,17 @@ export default function Home() {
     <div
       className="hero-sub position-absolute"
       style={{
-        bottom: "-70px",
-        left: "-40px",
+        bottom: "-60px",
+        left: "-30px",
         borderRadius: "20px",
       }}
     >
       <Image
         src="/image/team2.png"
         alt="Business meeting"
-        width={300}
-        height={200}
-        className="rounded"
+        width={280}
+        height={190}
+        className="rounded img-fluid"
         style={{
           borderRadius: "20px",
           objectFit: "cover",
@@ -482,15 +461,61 @@ export default function Home() {
   </div>
   
 
-  {/* Animation Styles */}
+  {/* Animation Styles & Responsive Overrides */}
   <style jsx global>{`
+  .home-hero-section {
+    background: linear-gradient(180deg, #edf2f9 0%, #f8fafc 100%);
+    padding-top: 175px;
+    padding-bottom: 110px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .home-hero-section {
+      padding-top: 85px !important;
+      padding-bottom: 50px !important;
+    }
+    .home-hero-title {
+      font-size: 28px !important;
+      line-height: 1.25 !important;
+    }
+    .search-col-exp,
+    .search-col-loc,
+    .search-col-kw {
+      border-right: none !important;
+      border-bottom: 1px solid #f1f5f9;
+      width: 100% !important;
+    }
+    .hero-sub {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .search-col-exp {
+      border-right: 1px solid #e6e9ef;
+      height: 100%;
+      flex-shrink: 0;
+    }
+    .search-col-loc {
+      border-right: 1px solid #e6e9ef;
+      height: 100%;
+      flex-shrink: 0;
+    }
+    .search-col-kw {
+      border-right: 1px solid #e6e9ef;
+      height: 100%;
+    }
+  }
+
   .search-btn {
-  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
-  color: white !important;
-  border: none !important;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
-  transition: all 0.25s ease;
-}
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    transition: all 0.25s ease;
+  }
 
 .search-btn:hover {
   background: linear-gradient(135deg, #4338ca 0%, #0891b2 100%) !important;
@@ -565,16 +590,16 @@ export default function Home() {
           className="d-flex justify-content-center"
         >
           <Card
-            className="text-center shadow-sm border-0 category-card"
+            className="text-center shadow-sm border-0 category-card w-100"
             style={{
-              width: "210px", // same width
-              height: "200px", // same height
+              maxWidth: "210px",
+              minHeight: "185px",
               borderRadius: "15px",
               transition: "transform 0.3s ease, box-shadow 0.3s ease",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-10px)";
+              e.currentTarget.style.transform = "translateY(-6px)";
               e.currentTarget.style.boxShadow = "0 15px 25px rgba(0,0,0,0.1)";
             }}
             onMouseLeave={(e) => {
@@ -582,22 +607,30 @@ export default function Home() {
               e.currentTarget.style.boxShadow = "0 4px 10px rgba(0,0,0,0.05)";
             }}
           >
-            <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-              <Image
-                src={job.image}
-                alt={job.title}
-                width={150} // ⬅️ increased from 80
-                height={150} // ⬅️ increased from 80
-                className="mb-3"
+            <Card.Body className="d-flex flex-column align-items-center justify-content-center p-2 p-sm-3">
+              <div
                 style={{
-                  objectFit: "cover",
+                  width: "90px",
+                  height: "90px",
+                  position: "relative",
+                  marginBottom: "10px",
                   borderRadius: "10px",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)", // subtle image shadow
+                  overflow: "hidden",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
                 }}
-              />
+              >
+                <Image
+                  src={job.image}
+                  alt={job.title}
+                  fill
+                  sizes="100px"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
               <Card.Text
-                className="fw-medium text-dark"
-                style={{ fontSize: "15px" }}
+                className="fw-semibold text-dark text-truncate w-100 mb-0"
+                style={{ fontSize: "14px" }}
+                title={job.title}
               >
                 {job.title}
               </Card.Text>
@@ -765,7 +798,7 @@ export default function Home() {
     {latestJobs.length > 0 ? (
       <Row className="gy-4">
         {latestJobs.slice(0, 4).map((job) => (
-          <Col key={job.id} md={3}>
+          <Col key={job.id} xs={12} sm={6} md={3}>
             <Card
               className="border-0 shadow-sm h-100 bg-white"
               style={{
@@ -912,18 +945,19 @@ export default function Home() {
   <Container>
     <Row className="align-items-center">
       <Col md={6}>
-        <div style={{ position: "relative", width: "100%", height: "500px" }}>
+        <div
+          className="collage-wrapper position-relative w-100 mb-4 mb-md-0"
+          style={{ height: "450px" }}
+        >
           {/* Main Big Image */}
           <Image
             src="/image/team.jpeg"
             alt="team"
             width={450}
             height={350}
-            className="rounded"
+            className="rounded w-100 h-100"
             style={{
               objectFit: "cover",
-              width: "100%",
-              height: "100%",
               borderRadius: "15px",
             }}
           />
@@ -932,17 +966,18 @@ export default function Home() {
           <Image
             src="/image/collage1.jpg"
             alt="floating1"
-            width={250}
-            height={280}
-            className="rounded"
+            width={240}
+            height={260}
+            className="rounded d-none d-sm-block"
             style={{
               position: "absolute",
               top: "20px",
-              left: "-25px",
+              left: "-15px",
               transform: "rotate(-6deg)",
               borderRadius: "15px",
               boxShadow: "0 8px 25px rgba(0,0,0,0.25)",
               objectFit: "cover",
+              maxWidth: "45%",
             }}
           />
 
@@ -950,17 +985,18 @@ export default function Home() {
           <Image
             src="/image/collage2.jpg"
             alt="floating2"
-            width={240}
-            height={170}
-            className="rounded"
+            width={220}
+            height={160}
+            className="rounded d-none d-sm-block"
             style={{
               position: "absolute",
               bottom: "20px",
-              right: "-25px",
+              right: "-15px",
               transform: "rotate(5deg)",
               borderRadius: "15px",
               boxShadow: "0 8px 25px rgba(0,0,0,0.25)",
               objectFit: "cover",
+              maxWidth: "45%",
             }}
           />
         </div>
@@ -1097,7 +1133,7 @@ export default function Home() {
               key={blog.id}
               className="border rounded-4 shadow-sm bg-white"
               style={{
-                width: "380px",
+                width: "min(360px, 82vw)",
                 height: "500px",
                 flexShrink: 0,
                 borderColor: "#e5e7eb",

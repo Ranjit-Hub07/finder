@@ -16,32 +16,34 @@ const Topbar = () => {
   ];
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: "110px",
-        left: 0,
-        width: "100%",
-        zIndex: 1015,
-        background: "linear-gradient(135deg, #0b0f19 0%, #1e1b4b 60%, #0369a1 100%)",
-        padding: "8px 0",
-        minHeight: "48px",
-        boxShadow: "0 4px 16px rgba(11, 15, 25, 0.25)",
-        borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <>
       <div
-        className="container d-flex justify-content-start align-items-center"
+        className="recruiter-topbar"
         style={{
-          overflowX: "auto",
-          whiteSpace: "nowrap",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
+          position: "fixed",
+          left: 0,
+          width: "100%",
+          zIndex: 1015,
+          background: "linear-gradient(135deg, #0b0f19 0%, #1e1b4b 60%, #0369a1 100%)",
+          padding: "8px 0",
+          minHeight: "48px",
+          boxShadow: "0 4px 16px rgba(11, 15, 25, 0.25)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        <div className="d-flex align-items-center gap-2 py-1">
+        <div
+          className="container d-flex justify-content-start align-items-center px-2 px-md-3"
+          style={{
+            overflowX: "auto",
+            WebkitOverflowScrolling: "touch",
+            whiteSpace: "nowrap",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          <div className="d-flex align-items-center gap-2 py-1">
           {buttons.map((btn) => {
             const isActive =
               pathname === btn.path ||
@@ -78,6 +80,19 @@ const Topbar = () => {
         </div>
       </div>
     </div>
+
+    <style jsx global>{`
+      .recruiter-topbar {
+        top: 110px;
+        transition: top 0.2s ease;
+      }
+      @media (max-width: 768px) {
+        .recruiter-topbar {
+          top: 60px !important;
+        }
+      }
+    `}</style>
+  </>
   );
 };
 

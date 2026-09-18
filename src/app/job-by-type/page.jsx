@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -94,11 +94,11 @@ const JobType = () => {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: "110px" }}>
+      <div style={{ paddingTop: "var(--header-offset, 70px)" }}>
         {/* Banner */}
         <div className="page-banner">
           <Container>
-            <h1 style={{ fontWeight: 800, fontSize: "40px" }}>Browse Jobs by Type</h1>
+            <h1 style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 5vw, 2.5rem)" }}>Browse Jobs by Type</h1>
             <p style={{ opacity: 0.88, fontSize: "16px", marginTop: "8px" }}>
               Choose the employment type that fits your lifestyle and goals.
             </p>
@@ -113,9 +113,9 @@ const JobType = () => {
         </div>
 
         {/* Job Type Grid */}
-        <section style={{ background: "#f8f9fc", padding: "60px 0" }}>
+        <section style={{ background: "#f8f9fc", padding: "40px 0" }}>
           <Container>
-            <div className="text-center mb-5">
+            <div className="text-center mb-4 mb-md-5">
               <h2 className="section-heading">Explore Employment Types</h2>
               <p className="section-subheading mt-2">
                 From government to remote — find the kind of work that works for you.
@@ -125,8 +125,8 @@ const JobType = () => {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-                gap: "24px",
+                gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 200px), 1fr))",
+                gap: "16px",
               }}
             >
               {jobTypes.map((job, idx) => (

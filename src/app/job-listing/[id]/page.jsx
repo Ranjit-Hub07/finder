@@ -48,30 +48,46 @@ export default function JobDetailsPage() {
                     className="text-decoration-none"
                   >
                     <Card
-                      className="mb-3 similar-job-card"
+                      className="mb-3 similar-job-card border-0 shadow-sm"
                       style={{
                         cursor: "pointer",
-                        borderRadius: "12px",
-                        transition: "0.3s",
-                        border: "1px solid #e6ecf5",
+                        borderRadius: "14px",
+                        transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                        border: "1px solid #e2e8f0",
+                        background: "#ffffff",
                       }}
                     >
-                      <Card.Body>
-                        <h6 className="fw-bold mb-1" style={{ color: "#05264e" }}>
-                          {item.job_title}
-                        </h6>
-                        <div className="text-muted small mb-1">
-                          🕒 Posted on {new Date(item.created_at).toLocaleDateString()}
+                      <Card.Body className="p-3">
+                        <div className="d-flex align-items-center justify-content-between mb-1">
+                          <h6 className="fw-bold mb-0 text-dark text-truncate" style={{ fontSize: "14.5px" }}>
+                            {item.job_title}
+                          </h6>
+                          <span className="text-muted small" style={{ fontSize: "11px" }}>
+                            {new Date(item.created_at).toLocaleDateString()}
+                          </span>
                         </div>
-                        <div className="fw-bold text-primary mb-2">
-                          ₹{item.job_minsalary} {item.salary_period || "/month"}
+                        <div className="fw-bold mb-2" style={{ color: "#059669", fontSize: "13.5px" }}>
+                          ₹{item.job_minsalary} {item.salary_period || "/mo"}
                         </div>
-                        <Badge bg="light" text="dark" className="me-1">
-                          {item.job_company}
-                        </Badge>
-                        <Badge bg="light" text="dark">
-                          {item.job_cityid}
-                        </Badge>
+                        <div className="d-flex flex-wrap gap-1">
+                          {item.job_company && (
+                            <span className="badge bg-light text-secondary border px-2 py-1" style={{ fontSize: "11px" }}>
+                              <i className="bi bi-building me-1"></i>
+                              {item.job_company}
+                            </span>
+                          )}
+                          {item.job_cityid && (
+                            <span className="badge bg-light text-secondary border px-2 py-1" style={{ fontSize: "11px" }}>
+                              <i className="bi bi-geo-alt me-1"></i>
+                              {item.job_cityid}
+                            </span>
+                          )}
+                          {item.role_name && (
+                            <span className="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1" style={{ fontSize: "11px" }}>
+                              {item.role_name}
+                            </span>
+                          )}
+                        </div>
                       </Card.Body>
                     </Card>
                   </Link>

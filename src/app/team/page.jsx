@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
@@ -87,11 +87,11 @@ const Team = () => {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: "110px" }}>
+      <div style={{ paddingTop: "var(--header-offset, 70px)" }}>
         {/* Banner */}
         <div className="page-banner">
           <Container>
-            <h1 style={{ fontWeight: 800, fontSize: "40px" }}>Meet Our Team</h1>
+            <h1 style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 5vw, 2.5rem)" }}>Meet Our Team</h1>
             <p style={{ opacity: 0.9, fontSize: "16px", marginTop: "8px" }}>
               The passionate people behind Finder — building India's most trusted job portal.
             </p>
@@ -131,7 +131,7 @@ const Team = () => {
             </div>
             <Row>
               {leaders.map((person, idx) => (
-                <Col md={4} key={idx} className="mb-4">
+                <Col xs={12} sm={6} md={4} key={idx} className="mb-4">
                   <div
                     className="card-hover"
                     style={{ padding: "28px 24px", textAlign: "center" }}

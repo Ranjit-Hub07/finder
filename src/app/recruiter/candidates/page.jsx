@@ -58,17 +58,18 @@ const Candidates = ({ title }) => {
       <Topbar />
 
       <div
+        className="recruiter-page-container"
         style={{
-          paddingTop: "175px",
           background: "linear-gradient(135deg, #f5f8ff 0%, #ebf1ff 100%)",
           minHeight: "100vh",
           paddingBottom: "40px",
         }}
       >
         <div
-          className="mx-auto p-4 p-md-4"
+          className="mx-auto p-3 p-md-4"
           style={{
-            maxWidth: "90%",
+            maxWidth: "1400px",
+            width: "95%",
             background: "rgba(255, 255, 255, 0.9)",
             borderRadius: "14px",
             border: "1px solid #e6e9f2",
@@ -77,15 +78,15 @@ const Candidates = ({ title }) => {
           }}
         >
           {/* Header & Filters */}
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
-            <h4 className="fw-bold" style={{ color: "#05264e", fontSize: "22px" }}>
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
+            <h4 className="fw-bold mb-0" style={{ color: "#05264e", fontSize: "1.25rem" }}>
               {title || "Candidate Applications"}
             </h4>
 
-            <div className="d-flex flex-column flex-md-row gap-2">
+            <div className="d-flex flex-column flex-sm-row gap-2">
               <select
                 className="form-select shadow-sm"
-                style={{ width: "260px", height: "47px" }}
+                style={{ minWidth: "200px", height: "45px" }}
                 value={selectedJob}
                 onChange={(e) => setSelectedJob(e.target.value)}
               >
@@ -100,7 +101,7 @@ const Candidates = ({ title }) => {
 
               <select
                 className="form-select shadow-sm"
-                style={{ width: "260px", height: "47px" }}
+                style={{ minWidth: "180px", height: "45px" }}
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >

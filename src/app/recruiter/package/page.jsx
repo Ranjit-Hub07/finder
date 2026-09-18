@@ -72,7 +72,7 @@ const Package = () => {
       {/* ⭐ Page Wrapper */}
       <div
         style={{
-          paddingTop: "110px",
+          paddingTop: "var(--header-offset, 70px)",
           minHeight: "100vh",
           paddingBottom: "50px",
           backgroundColor: "#f8fafc",
@@ -100,7 +100,7 @@ const Package = () => {
         </div>
 
         {/* ⭐ Cards Section */}
-        <Container className="d-flex justify-content-center flex-wrap my-5">
+        <Container className="d-flex justify-content-center flex-wrap my-4 px-2">
           {plans.map((plan) => {
             const discount = Math.round(
               ((plan.mrp_inr - plan.price_inr) / plan.mrp_inr) * 100
@@ -115,12 +115,13 @@ const Package = () => {
               <div
                 key={plan.id}
                 style={{
-                  width: "350px",
+                  width: "100%",
+                  maxWidth: "350px",
                   borderRadius: "15px",
                   boxShadow: isRecommended
                     ? "0 0 12px 2px rgba(255,165,0,0.8)"
                     : "0 8px 20px rgba(0, 0, 0, 0.15)",
-                  margin: "20px",
+                  margin: "14px 8px",
                   background: "#7b75f8",
                   color: "white",
                   position: "relative",

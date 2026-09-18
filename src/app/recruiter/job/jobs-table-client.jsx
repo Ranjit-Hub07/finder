@@ -56,29 +56,29 @@ export default function JobsTableClient() {
   return (
     <>
       {/* HEADER */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h4 className="fw-bold" style={{ color: "#05264e", fontSize: "22px" }}>
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
+        <h4 className="fw-bold mb-0" style={{ color: "#05264e", fontSize: "22px" }}>
           🔍 Job Listings
         </h4>
 
-        <div className="d-flex align-items-center gap-2">
+        <div className="d-flex flex-wrap align-items-center gap-2 w-100 w-md-auto">
           <select
             className="form-select form-select-sm shadow-sm rounded-pill px-3"
             onChange={(e) => setFilterStatus(e.target.value)}
             value={filterStatus}
-            style={{ width: "160px" }}
+            style={{ width: "auto", minWidth: "135px" }}
           >
-            <option value="All">Select Status</option>
+            <option value="All">All Status</option>
             <option value="Open">Open</option>
             <option value="Closed">Closed</option>
             <option value="Paused">Paused</option>
           </select>
 
-          <Link href="/recruiter/job/post-job" className="btn btn-primary btn-sm rounded-pill px-3">
+          <Link href="/recruiter/job/post-job" className="btn btn-primary btn-sm rounded-pill px-3 py-1 flex-grow-1 flex-md-grow-0 text-center">
             + Post Job
           </Link>
 
-          <Link href="/recruiter/job/upload-job" className="btn btn-outline-primary btn-sm rounded-pill px-3">
+          <Link href="/recruiter/job/upload-job" className="btn btn-outline-primary btn-sm rounded-pill px-3 py-1 flex-grow-1 flex-md-grow-0 text-center">
             Upload Job
           </Link>
         </div>

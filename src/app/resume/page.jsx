@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import { Container, Row, Col } from "react-bootstrap";
@@ -99,11 +99,11 @@ const Resume = () => {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: "110px" }}>
+      <div style={{ paddingTop: "var(--header-offset, 70px)" }}>
         {/* Banner */}
         <div className="page-banner">
           <Container>
-            <h1 style={{ fontWeight: 800, fontSize: "40px" }}>Resume Writing Hub</h1>
+            <h1 style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 5vw, 2.5rem)" }}>Resume Writing Hub</h1>
             <p style={{ opacity: 0.9, fontSize: "16px", marginTop: "8px" }}>
               Build a resume that gets noticed — by both recruiters and ATS systems.
             </p>
@@ -125,7 +125,7 @@ const Resume = () => {
                 { val: "40%", label: "More interviews with quantified achievements" },
                 { val: "3×", label: "Higher callback rate with tailored resumes" },
               ].map((s, i) => (
-                <Col md={3} key={i}>
+                <Col xs={6} md={3} key={i} className="mb-3 mb-md-0">
                   <div style={{ padding: "8px 0" }}>
                     <div style={{ fontSize: "28px", fontWeight: 800, marginBottom: "4px" }}>{s.val}</div>
                     <div style={{ fontSize: "13px", opacity: 0.85 }}>{s.label}</div>
@@ -147,7 +147,7 @@ const Resume = () => {
             </div>
             <Row>
               {categories.map((cat, idx) => (
-                <Col md={4} sm={6} key={idx} className="mb-4">
+                <Col xs={12} sm={6} md={4} key={idx} className="mb-4">
                   <div
                     className="card-hover"
                     style={{ padding: "28px 22px", textAlign: "center", cursor: "pointer" }}

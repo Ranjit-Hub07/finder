@@ -23,43 +23,54 @@ const BackToTop = () => {
       {visible && (
         <button
           onClick={scrollToTop}
+          className="back-to-top-btn d-flex align-items-center justify-content-center"
+          aria-label="Back to top"
           style={{
             position: "fixed",
-            bottom: "30px",
-            right: "30px",
-            background: "linear-gradient(135deg, #007bff, #6610f2)",
+            background: "linear-gradient(135deg, #4f46e5, #06b6d4)",
             color: "#fff",
             border: "none",
-            padding: "16px",
             borderRadius: "50%",
-            fontSize: "20px",
             cursor: "pointer",
-            boxShadow:
-              "0px 4px 15px rgba(0, 0, 0, 0.4), 0px 0px 15px rgba(0, 123, 255, 0.8)",
+            boxShadow: "0 6px 20px rgba(79, 70, 229, 0.4)",
             transition: "all 0.3s ease",
-            animation: "floatUp 2s infinite ease-in-out",
+            animation: "floatUp 2.5s infinite ease-in-out",
             zIndex: 9999,
           }}
           onMouseEnter={(e) => {
-            e.target.style.transform = "scale(1.15)";
-            e.target.style.boxShadow =
-              "0px 4px 20px rgba(0,0,0,0.5), 0px 0px 20px rgba(0,123,255,1)";
+            e.currentTarget.style.transform = "scale(1.12)";
           }}
           onMouseLeave={(e) => {
-            e.target.style.transform = "scale(1)";
-            e.target.style.boxShadow =
-              "0px 4px 15px rgba(0,0,0,0.4), 0px 0px 15px rgba(0,123,255,0.8)";
+            e.currentTarget.style.transform = "scale(1)";
           }}
         >
           <FaArrowUp />
         </button>
       )}
 
-      {/* Floating animation */}
+      {/* Responsive & Floating animation */}
       <style>{`
+        .back-to-top-btn {
+          bottom: 25px;
+          right: 25px;
+          width: 48px;
+          height: 48px;
+          font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+          .back-to-top-btn {
+            bottom: 18px !important;
+            right: 18px !important;
+            width: 40px !important;
+            height: 40px !important;
+            font-size: 14px !important;
+          }
+        }
+
         @keyframes floatUp {
           0% { transform: translateY(0); }
-          50% { transform: translateY(-6px); }
+          50% { transform: translateY(-5px); }
           100% { transform: translateY(0); }
         }
       `}</style>
